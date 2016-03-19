@@ -1,17 +1,35 @@
 {
-  "name": "generator",
+  "name": "fgen",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tool to create file generators based on templates",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate": "node examples/test.js"
   },
-  "author": "",
+  "author": "LFDM",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.6.1",
     "mkdirp": "^0.5.1",
     "yargs": "^4.3.1"
-  }
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LFDM/fgen.git"
+  },
+  "keywords": [
+    "yeoman",
+    "slush",
+    "templates",
+    "generator"
+  ],
+  "bugs": {
+    "url": "https://github.com/LFDM/fgen/issues"
+  },
+  "homepage": "https://github.com/LFDM/fgen#readme"
 }
