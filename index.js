@@ -8,7 +8,7 @@ var path = require('path');
 var yargs = require('yargs');
 
 var defaults = {
-  base: __dirname,
+  base: process.cwd(),
   current: process.cwd(),
   interpolator: /{{([\s\S]+?)}}/g,
 };
