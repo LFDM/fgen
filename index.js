@@ -9,17 +9,22 @@ var yargs = require('yargs');
 
 var defaults = {
   base: __dirname,
+  current: process.cwd(),
   interpolator: /{{([\s\S]+?)}}/g,
 };
+
 
 var generator = {
   interpolator: defaults.interpolator,
   paths: {
-    base: defaults.base
+    base: defaults.base,
+    current: defaults.current,
   },
   register: register,
-  process: process
+  run: run
 };
+
+module.exports = generator;
 
 function register() {
   _.forEach(arguments, function(conf) {
@@ -31,7 +36,7 @@ function register() {
   });
 }
 
-function process() {
+function run() {
   if (yargs.argv._.length === 0) {
     yargs.showHelp();
   }
@@ -72,5 +77,3 @@ function logError(type, atPath) {
 function logSuccess(atPath) {
   console.log('File created at ' + atPath);
 }
-
-module.exports = generator;
