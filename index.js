@@ -22,7 +22,7 @@ function register() {
   _.forEach(arguments, function(conf) {
     yargs.command(conf.command, conf.description, conf.options, function(argv) {
         console.log('Invoking ' + argv._[0]);
-        var instructions = conf.onMatch(argv, generator.base, generator.current);
+        var instructions = conf.onMatch(argv, generator);
         _.forEach(instructions, processInstruction);
     });
   });
