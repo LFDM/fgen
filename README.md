@@ -12,9 +12,9 @@ npm install ftemp --save-dev
 ## Usage
 
 
-Given this file `generate.js`, which runs `ftemp`
+Given a file called `generate.js`, which runs `ftemp`
 
-```
+```javascript
 
 // generate.js
 
