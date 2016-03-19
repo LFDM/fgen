@@ -45,7 +45,6 @@ module.exports = {
     };
 
     return _.reduce(actions, function(mem, action, name) {
-      console.log(argv, name, argv[name]);
       if (argv[name]) {
         mem.push(action);
       }
