@@ -9,15 +9,13 @@ var yargs = require('yargs');
 
 var defaults = {
   base: __dirname,
-  current: __dirname,
   interpolator: /{{([\s\S]+?)}}/g,
 };
 
 var generator = {
   interpolator: defaults.interpolator,
   paths: {
-    base: defaults.base,
-    current: defaults.current,
+    base: defaults.base
   },
   register: register,
   process: process
