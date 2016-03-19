@@ -75,3 +75,46 @@ you can try
 npm run -s generate -- component
 ```
 
+
+## API Docs
+
+#### `ftemp.register(conf1, [conf2, conf3, ...])`
+
+`register` is a wrapper around [yargs](http://yargs.js.org/).
+Configuration objects have the following shape:
+
+```
+{
+  command: String,
+  description: String,
+  options: Object,
+  onMatch: Function(argv, paths) -> List<Instruction>
+}
+```
+
+`onMatch` needs to return a list of Instructions - each Instruction will
+create a file.
+
+```
+{
+  interpolator: Object, // Values used within the template
+  template: String, // path to a template file
+  path: String // path of the file to generate
+}
+```
+
+#### `ftemp.run()`
+
+Invoke at the end of your `ftemp` script
+
+#### `ftemp.paths`
+
+Helper paths, which are passed to the `onMatch` function.
+
+Comes with two defaults:
+```
+{
+  base: String // current working directory
+  current: String // current working directory
+}
+```
