@@ -1,8 +1,8 @@
+/* eslint-disable indent */
+
 var _ = require('lodash');
 var fs = require('fs');
 var yargs = require('yargs');
-
-var registry = [];
 
 var defaults = {
   base: __dirname,
@@ -18,23 +18,20 @@ var generator = {
   process: process
 };
 
-function register(conf) {
-  registry.push(conf);
-  yargs.command(conf.command, conf.description);
+function register() {
+  _.forEach(arguments, function(conf) {
+    yargs.command(conf.command, conf.description, conf.options, function(argv) {
+        console.log('Invoking ' + argv._[0]);
+        var instructions = conf.onMatch(argv, generator.base, generator.current);
+        _.forEach(instructions, processInstruction);
+    });
+  });
 }
 
 function process() {
-  var argv = yargs.argv;
-  var command = argv._[0];
-  for (var i = 0; i < registry.length; i++) {
-    var conf = registry[i];
-    if (command === conf.command) {
-      var instructions = conf.onMatch(argv, generator.base, generator.current);
-      _.forEach(instructions, processInstruction);
-      return;
-    }
+  if (yargs.argv._.length === 0) {
+    yargs.showHelp();
   }
-  yargs.showHelp();
 }
 
 function processInstruction(instr) {
