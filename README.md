@@ -67,3 +67,11 @@ will create a file at `src/friend/index.js` with the content `Hello
 FRIEND!`
 
 
+Check out the `examples` folder for a more elaborate use case.
+The example script is exposed as `npm run` script in this repository, so
+you can try
+
+```
+npm run -s generate -- component
+```
+
