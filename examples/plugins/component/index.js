@@ -1,6 +1,7 @@
 var path = require('path');
 var _ = require('lodash');
 
+
 module.exports = {
   command: 'component <name> [options]',
   description: 'Create a component, optionally with a container and a pure presenter',
@@ -28,31 +29,24 @@ module.exports = {
     var folder= path.join(paths.base, 'components', name);
     var interpolator = { name: name, cssName: _.kebabCase(name) };
 
+    function toAction(tplPath, outputPath) {
+      return {
+        interpolator: interpolator,
+        template: path.join(__dirname, tplPath),
+        path: path.join(folder, outputPath),
+      };
+    }
+
     var actions = {
-      purePresenter: {
-        interpolator: interpolator,
-        template: path.join(__dirname, 'presenter-pure.tpl'),
-        path: path.join(folder, 'presenter.js')
-      },
-      presenter: {
-        interpolator: interpolator,
-        template: path.join(__dirname, 'presenter.tpl'),
-        path: path.join(folder, 'presenter.js')
-      },
-      container: {
-        interpolator: interpolator,
-        template: path.join(__dirname, 'container.tpl'),
-        path: path.join(folder, 'index.js')
-      },
-      style: {
-        interpolator: interpolator,
-        template: path.join(__dirname, 'style.tpl'),
-        path: path.join(folder, 'style.less')
-      }
+      purePresenter: toAction('presenter-pure.tpl', 'presenter.js'),
+      presenter: toAction('presenter.tpl', 'presenter.js'),
+      container: toAction('container.tpl', 'index.js'),
+      style: toAction('style.tpl', 'style.less')
     };
 
     return _.reduce(actions, function(mem, action, name) {
-      if (argv.name) {
+      console.log(argv, name, argv[name]);
+      if (argv[name]) {
         mem.push(action);
       }
       return mem;
