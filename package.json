@@ -1,5 +1,5 @@
 {
-  "name": "fgen",
+  "name": "ftemp",
   "version": "1.0.0",
   "description": "Tool to create file generators based on templates",
   "main": "index.js",
@@ -20,7 +20,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LFDM/fgen.git"
+    "url": "git+https://github.com/LFDM/ftemp.git"
   },
   "keywords": [
     "yeoman",
@@ -29,7 +29,7 @@
     "generator"
   ],
   "bugs": {
-    "url": "https://github.com/LFDM/fgen/issues"
+    "url": "https://github.com/LFDM/ftemp/issues"
   },
-  "homepage": "https://github.com/LFDM/fgen#readme"
+  "homepage": "https://github.com/LFDM/ftemp#readme"
 }
