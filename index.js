@@ -3,6 +3,8 @@
 
 var _ = require('lodash');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
+var path = require('path');
 var yargs = require('yargs');
 
 var defaults = {
@@ -40,20 +42,37 @@ function process() {
 function processInstruction(instr) {
   fs.readFile(instr.template, function(readErr, f) {
     if (readErr) {
-      console.log('Unable to read template at ' + instr.template);
+      logError('find template', instr.template);
       return;
     }
     var file = f.toString();
     var templateOptions = { interpolate: generator.interpolator };
     var interpolated = _.template(file, templateOptions)(instr.interpolator);
-    fs.writeFile(instr.path, interpolated, function(writeErr) {
-      if (writeErr) {
-        console.log('Unable to write file at ' + instr.path);
+    var dirname = path.dirname(instr.path);
+
+    mkdirp(dirname, function(dirErr) {
+      if (dirErr) {
+        logError('create directory', dirname);
         return;
       }
-      console.log('File created at ' + instr.path);
+
+      fs.writeFile(instr.path, interpolated, function(writeErr) {
+        if (writeErr) {
+          logError('write file', instr.path);
+          return;
+        }
+        logSuccess(instr.path);
+      });
     });
   });
+}
+
+function logError(type, atPath) {
+  console.log('Unable to ' + type + ' at ' + atPath);
+}
+
+function logSuccess(atPath) {
+  console.log('File created at ' + atPath);
 }
 
 module.exports = generator;
