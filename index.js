@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+/* eslint-disable no-console */
 
 var _ = require('lodash');
 var fs = require('fs');
@@ -11,9 +12,11 @@ var defaults = {
 };
 
 var generator = {
-  base: defaults.base,
-  current: defaults.current,
   interpolator: defaults.interpolator,
+  paths: {
+    base: defaults.base,
+    current: defaults.current,
+  },
   register: register,
   process: process
 };
@@ -22,7 +25,7 @@ function register() {
   _.forEach(arguments, function(conf) {
     yargs.command(conf.command, conf.description, conf.options, function(argv) {
         console.log('Invoking ' + argv._[0]);
-        var instructions = conf.onMatch(argv, generator);
+        var instructions = conf.onMatch(argv, generator.paths);
         _.forEach(instructions, processInstruction);
     });
   });
