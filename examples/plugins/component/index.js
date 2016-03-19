@@ -27,42 +27,35 @@ module.exports = {
     var name = argv.name;
     var folder= path.join(paths.base, 'components', name);
     var interpolator = { name: name, cssName: _.kebabCase(name) };
-    var actions = [];
-    console.log(argv);
 
-    if (argv.purePresenter) {
-      actions.push(
-        {
-          interpolator: interpolator,
-          template: path.join(__dirname, 'presenter-pure.tpl'),
-          path: path.join(folder, 'presenter.js')
-        }
-      );
-    }
-    if (argv.presenter) {
-      actions.push(
-        {
-          interpolator: interpolator,
-          template: path.join(__dirname, 'presenter.tpl'),
-          path: path.join(folder, 'presenter.js')
-        }
-      );
-    }
-    if (argv.container) {
-      actions.push({
+    var actions = {
+      purePresenter: {
+        interpolator: interpolator,
+        template: path.join(__dirname, 'presenter-pure.tpl'),
+        path: path.join(folder, 'presenter.js')
+      },
+      presenter: {
+        interpolator: interpolator,
+        template: path.join(__dirname, 'presenter.tpl'),
+        path: path.join(folder, 'presenter.js')
+      },
+      container: {
         interpolator: interpolator,
         template: path.join(__dirname, 'container.tpl'),
         path: path.join(folder, 'index.js')
-      })
-    }
-    if (argv.style) {
-      actions.push({
+      },
+      style: {
         interpolator: interpolator,
         template: path.join(__dirname, 'style.tpl'),
         path: path.join(folder, 'style.less')
-      })
-    }
+      }
+    };
 
-    return actions;
+    return _.reduce(actions, function(mem, action, name) {
+      if (argv.name) {
+        mem.push(action);
+      }
+      return mem;
+    }, []);
   }
 }
